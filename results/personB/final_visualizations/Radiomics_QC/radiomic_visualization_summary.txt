@@ -1,0 +1,25 @@
+PERSON B - RADIOMIC VISUALIZATION SUMMARY
+======================================================================
+
+Patients: 46
+Radiomic features: 107
+Missing values: 0
+Infinite values: 0
+Constant features: 0
+Distribution features: 12
+Correlation features: 20
+High-correlation pairs (absolute r >= 0.90): 30
+
+Top variance features:
+1. original_firstorder_Energy
+2. original_firstorder_TotalEnergy
+3. original_glszm_LargeAreaHighGrayLevelEmphasis
+4. original_glszm_LargeAreaEmphasis
+5. original_glszm_ZoneVariance
+6. original_glcm_ClusterProminence
+7. original_glszm_LargeAreaLowGrayLevelEmphasis
+8. original_firstorder_Variance
+9. original_shape_MeshVolume
+10. original_shape_VoxelVolume
+11. original_glrlm_RunLengthNonUniformity
+12. original_gldm_LargeDependenceHighGrayLevelEmphasis

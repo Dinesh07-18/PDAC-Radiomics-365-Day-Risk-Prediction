@@ -1,0 +1,12 @@
+PERSON B - FINAL VISUALIZATION SUMMARY
+======================================================================
+
+Models evaluated: 9
+Best model by ROC-AUC: LogisticRegression
+Best feature set: Clinical Only
+Best ROC-AUC: 0.6200
+
+Interpretation:
+Clinical-only, radiomics-only, and combined feature sets were compared using multiple machine-learning classifiers.
+ROC-AUC is emphasized because the target contains fewer Class-1 patients than Class-0 patients.
+Accuracy should not be interpreted alone.

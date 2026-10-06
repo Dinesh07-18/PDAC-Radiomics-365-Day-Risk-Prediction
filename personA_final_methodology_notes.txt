@@ -1,0 +1,217 @@
+PERSON A — FINAL METHODOLOGY AND RESULTS NOTES
+ML MINI-PROJECT: PANCREATIC CANCER PROGNOSIS
+
+1. PROBLEM DEFINITION
+We formulate a 365-day risk classification problem using clinical data from pancreatic ductal adenocarcinoma (PDAC) patients.
+
+The objective is to classify patients into:
+- Class 0 (lower-risk group): known survival of at least 365 days.
+- Class 1 (higher-risk group): death before 365 days.
+
+Patients who were censored before 365 days were excluded because their true 365-day outcome could not be determined.
+
+2. DATASET
+Public CPTAC-PDA clinical data were used as the practical dataset for this project because the original Stanford CS229 project dataset was not publicly available.
+
+Initial PDAC records:
+- 140 PDAC patients.
+
+After requiring known survival information and removing the zero-follow-up case:
+- 137 patients had positive survival/follow-up time.
+
+Classification cohort:
+- 128 patients.
+
+Class distribution:
+- Class 0: 85 patients
+- Class 1: 43 patients
+
+3. DATA QUALITY
+One patient (C3L-01051) had 0 days of follow-up and was alive. This was interpreted as zero recorded follow-up rather than death on day 0. The patient was therefore excluded from the classification cohort.
+
+4. FEATURES
+Final clinical features:
+- Age at diagnosis (converted to years)
+- Sex
+- Tumor Grade
+
+Tumor Stage and Primary Diagnosis were removed because they had no useful variation in the 365-day classification cohort.
+
+Survival time, vital status, and event indicators were NOT used as model input features because they directly define the target and would cause information leakage.
+
+5. TRAIN/TEST SPLIT
+A stratified 80/20 train/test split was used.
+
+Training:
+- 102 patients
+- Class 0: 68
+- Class 1: 34
+
+Testing:
+- 26 patients
+- Class 0: 17
+- Class 1: 9
+
+random_state = 42
+
+6. CLASS IMBALANCE
+The training set contained fewer class-1 patients.
+
+SMOTENC was applied ONLY to the training data because Sex and Tumor Grade are categorical features.
+
+Before SMOTENC:
+- Class 0: 68
+- Class 1: 34
+
+After SMOTENC:
+- Class 0: 68
+- Class 1: 68
+
+The test set remained untouched.
+
+7. MODELS
+The following models were compared:
+
+A. Majority-Class Baseline
+Predicts every test patient as class 0.
+
+B. Naive Bayes without SMOTENC
+
+C. Naive Bayes with SMOTENC
+
+D. Logistic Regression with SMOTENC
+
+8. MAIN HELD-OUT TEST RESULTS
+
+Majority-Class Baseline:
+- Accuracy: 65.38%
+- Class-1 recall: 0%
+- Class-1 F1: 0.00
+
+Naive Bayes without SMOTENC:
+- Accuracy: 65.38%
+- Class-1 recall: 22%
+- Class-1 F1: 0.31
+
+Naive Bayes + SMOTENC:
+- Accuracy: 73.08%
+- Class-1 recall: 56%
+- Class-1 F1: 0.59
+- ROC-AUC: 0.595
+- Confusion matrix: [[14, 3], [4, 5]]
+- Correct predictions: 19/26
+
+Logistic Regression + SMOTENC:
+- Accuracy: 61.54%
+- Class-1 recall: 56%
+- Class-1 F1: 0.50
+- ROC-AUC: 0.575
+
+9. EFFECT OF SMOTENC
+For Naive Bayes:
+
+Without SMOTENC:
+- Accuracy: 65.38%
+- Class-1 recall: 22%
+- Class-1 F1: 0.31
+
+With SMOTENC:
+- Accuracy: 73.08%
+- Class-1 recall: 56%
+- Class-1 F1: 0.59
+
+Therefore, in this experiment, balancing the training data with SMOTENC improved both overall accuracy and high-risk-class detection.
+
+10. ERROR ANALYSIS
+For Naive Bayes + SMOTENC:
+
+- True negatives: 14
+- True positives: 5
+- False positives: 3
+- False negatives: 4
+- Total errors: 7
+
+The 4 false negatives are particularly important because they represent high-risk patients predicted as low-risk.
+
+The individual errors should not be interpreted causally because only three clinical features were used and the test set contains only 26 patients.
+
+11. FEATURE IMPORTANCE
+Permutation importance on the held-out test set gave:
+
+- Tumor Grade: mean importance = 0.2173
+- Sex: mean importance = 0.0000
+- Age: mean importance = -0.0173
+
+Tumor Grade was the most influential feature in this fitted model/test set.
+
+This should be described as model-specific importance, not as proof of clinical causation.
+
+12. CROSS-VALIDATION
+Five-fold stratified cross-validation was used as a robustness check, with SMOTENC applied within each training fold.
+
+Naive Bayes + SMOTENC:
+- Accuracy: 64.95% ± 10.86%
+- F1: 45.00% ± 18.93%
+- ROC-AUC: 60.08% ± 15.16%
+
+Logistic Regression + SMOTENC:
+- Accuracy: 62.55% ± 11.90%
+- F1: 41.53% ± 24.79%
+- ROC-AUC: 59.00% ± 16.10%
+
+The fold-to-fold variability is substantial, which is expected to be a limitation when working with a small dataset.
+
+13. FINAL MODEL CHOICE
+Naive Bayes + SMOTENC is selected as the Person A baseline model because it had:
+
+- Highest held-out accuracy: 73.08%
+- Highest held-out class-1 F1: 0.59
+- Highest ROC-AUC among tested models: 0.595
+- Class-1 recall of 56%
+
+This does NOT establish clinical usefulness. It identifies the strongest model among the approaches tested in this small experiment.
+
+14. LIMITATIONS
+- Small classification cohort (128 patients).
+- Held-out test set contains only 26 patients.
+- Cross-validation shows substantial performance variability.
+- Only three clinical features were used.
+- The original Stanford project dataset was unavailable because it was under NDA.
+- Radiomic/imaging features were not included in Person A's classification baseline.
+- The results should not be interpreted as clinical recommendations or validated clinical performance.
+
+15. FILES CREATED FOR PERSON A
+Data:
+- data/processed/clinical_survival.csv
+- data/processed/classification_365days.csv
+
+Scripts:
+- src/create_clinical_dataset.py
+- src/eda_clinical.py
+- src/create_classification_dataset.py
+- src/apply_smote.py
+- src/train_naive_bayes.py
+- src/train_logistic_regression.py
+- src/feature_importance.py
+- src/plot_roc_curves.py
+- src/cross_validation_models.py
+- src/baseline_classifier.py
+- src/error_analysis.py
+- src/final_model_comparison.py
+
+Results:
+- results/personA_baseline_results.txt
+- results/personA_model_comparison.csv
+- results/personA_feature_importance.csv
+- results/personA_feature_importance.png
+- results/personA_roc_curves.png
+- results/personA_cross_validation.txt
+- results/personA_error_analysis.csv
+- results/personA_final_model_comparison.csv
+
+16. SHORT VIVA EXPLANATION
+"I worked on the clinical classification component. We constructed a 365-day risk classification target from the public CPTAC-PDA clinical data. We used age, sex and tumor grade as predictors. Because the classes were imbalanced, we used SMOTENC on the training data while keeping the test set untouched. We compared a majority baseline, Naive Bayes, and Logistic Regression. Naive Bayes with SMOTENC performed best on our held-out test set, achieving 73.08% accuracy and 56% recall for the high-risk class. Five-fold cross-validation showed lower average performance and substantial variability, so we treat the result as a small-data baseline rather than a clinically validated predictor."
+
+17. STATUS
+Person A classification modeling is frozen at this point. No additional algorithms are required unless the faculty specifically requests them.
+

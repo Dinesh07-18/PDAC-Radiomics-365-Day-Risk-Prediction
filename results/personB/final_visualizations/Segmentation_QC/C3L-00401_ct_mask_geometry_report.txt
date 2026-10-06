@@ -1,0 +1,41 @@
+PERSON B - CT + MASK GEOMETRY VALIDATION
+======================================================================
+
+Patient: C3L-00401
+Mask: C:\Users\DELL\Downloads\ml_mini_project\ml_mini_project\data\radiomics\masks\C3L-00401\C3L-00401_PANCREAS_-_1_1_3_6_1_4_1_14519_5_2_1_1078_3273_115222332781781993819030355720.nii.gz
+Referenced CT UID: 1.3.6.1.4.1.14519.5.2.1.1078.3273.115222332781781993819030355720
+
+CT
+Shape: (220, 512, 512)
+Spacing: [0.664062 0.664062 2.      ]
+Origin: [-192.4  -170.   -488.75]
+Direction: (1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
+Z minimum: -488.75
+Z maximum: -50.75
+Z intervals: 219
+Non-uniform intervals: 0
+
+MASK
+Shape: (220, 512, 512)
+Spacing: [0.66406202 0.66406202 2.        ]
+Origin: [-192.3999939 -170.        -488.75     ]
+Direction: (1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
+Foreground voxels: 8765
+
+GEOMETRY CHECKS
+Dimensions match: True
+Spacing matches: True
+Origin matches: True
+Direction matches: True
+
+CT physical extent:
+[339.335682 339.335682 438.      ]
+
+Mask physical extent:
+[339.33569384 339.33569384 438.        ]
+
+Physical extent difference:
+[1.18362121e-05 1.18362121e-05 0.00000000e+00]
+
+Mask foreground slice range:
+166 to 175

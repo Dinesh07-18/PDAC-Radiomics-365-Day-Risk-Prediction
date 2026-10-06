@@ -1,0 +1,2 @@
+test,test_statistic,p_value,lower_risk_n,higher_risk_n,lower_risk_median_days,higher_risk_median_days
+Log-rank,188.49820630323637,6.763116089170952e-43,85,43,815.0,211.0

@@ -1,0 +1,37 @@
+PDAC 365-DAY RISK CLASSIFICATION
+FINAL RESULTS SUMMARY
+======================================================================
+
+Dataset:
+46 CT-eligible patients
+Class 0: 33
+Class 1: 13
+
+LOGISTIC REGRESSION RESULTS
+----------------------------------------------------------------------
+Clinical-only
+Accuracy: 0.6087
+Precision: 0.3913
+Recall: 0.6923
+F1: 0.5000
+ROC-AUC: 0.6200
+
+Radiomics-only
+Accuracy: 0.6087
+Precision: 0.3333
+Recall: 0.3846
+F1: 0.3571
+ROC-AUC: 0.5338
+
+Clinical + Radiomics
+Accuracy: 0.6522
+Precision: 0.4000
+Recall: 0.4615
+F1: 0.4286
+ROC-AUC: 0.5501
+
+INTERPRETATION
+----------------------------------------------------------------------
+Radiomics did not improve ROC-AUC over the clinical-only model.
+
+The results should be interpreted cautiously because the final radiomics cohort contains only 46 patients and 13 Class-1 cases, while 107 radiomic features were extracted.

@@ -1,0 +1,127 @@
+
+PERSON B — RADIOMIC COX SURVIVAL ANALYSIS
+==========================================
+
+DATASET
+-------
+
+Radiomic patients initially:
+46
+
+Clinical survival patients:
+138
+
+Matched patients:
+46
+
+Final Cox patients:
+46
+
+Events:
+41
+
+Censored:
+5
+
+
+RADIOMIC FEATURE SELECTION
+--------------------------
+
+Initial radiomic features:
+107
+
+Low-variance features removed:
+0
+
+Highly correlated features removed:
+46
+
+Features remaining after correlation filtering:
+61
+
+Radiomic features selected:
+3
+
+
+SELECTED RADIOMIC FEATURES
+--------------------------
+
+- original_gldm_LargeDependenceHighGrayLevelEmphasis
+- original_glcm_MCC
+- original_glszm_LargeAreaEmphasis
+
+
+COX MODEL PERFORMANCE
+---------------------
+
+Clinical Cox C-index:
+0.6606
+
+Radiomic Cox C-index:
+0.6091
+
+Combined Cox C-index:
+0.7081
+
+
+INTERPRETATION
+--------------
+
+The Clinical Cox model uses age, sex and tumor grade.
+
+The Radiomic Cox model uses a small number of selected
+radiomic features following low-variance and
+high-correlation filtering.
+
+The Combined Cox model uses the clinical variables
+together with the selected radiomic features.
+
+The combined model produced the highest apparent
+C-index among the three evaluated models.
+
+
+IMPORTANT SCIENTIFIC LIMITATION
+-------------------------------
+
+This analysis uses a small 46-patient radiomics cohort.
+
+Feature screening and model fitting were performed on
+the available cohort, so the reported C-indices are
+exploratory apparent performance estimates rather than
+independently validated performance.
+
+The small sample size relative to the original number
+of radiomic variables creates a substantial risk of
+overfitting.
+
+The results should therefore be interpreted as
+exploratory research findings and not as clinically
+validated predictive performance.
+
+
+OUTPUTS
+-------
+
+radiomic_feature_selection_summary.csv
+low_variance_features_removed.csv
+highly_correlated_features_removed.csv
+radiomic_univariate_cox_results.csv
+selected_radiomic_features.csv
+radiomic_cox_analysis_dataset.csv
+
+clinical_cox_results.csv
+radiomic_cox_results.csv
+combined_cox_results.csv
+all_cox_model_results.csv
+
+important_radiomic_cox_features.csv
+cox_cindex_comparison.csv
+
+clinical_cox_ph_test.csv
+radiomic_cox_ph_test.csv
+combined_cox_ph_test.csv
+
+clinical_cox_hazard_ratios.png
+radiomic_cox_hazard_ratios.png
+combined_cox_hazard_ratios.png
+cox_cindex_comparison.png

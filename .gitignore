@@ -1,0 +1,8 @@
+﻿.venv/
+.venv39/
+__pycache__/
+*.pyc
+
+data/radiomics/ct/
+data/radiomics/annotations/
+data/radiomics/masks/

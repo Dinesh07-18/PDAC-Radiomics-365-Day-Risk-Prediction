@@ -1,0 +1,43 @@
+PERSON B - COX PROPORTIONAL HAZARDS ANALYSIS
+=================================================================
+
+MODEL
+------------------------------
+Outcome: survival_time_days + event
+Predictors: Age, Sex, Tumor Grade
+Tumor Stage: excluded because all values were 'Not Reported'
+
+COHORT
+------------------------------
+Patients: 138
+Events: 110
+Censored: 28
+
+CONCORDANCE INDEX
+------------------------------
+0.5761
+
+HAZARD RATIOS
+------------------------------
+
+Age
+  Hazard Ratio: 0.9989
+  95% CI: 0.9806 - 1.0176
+  p-value: 0.908109
+
+Sex: Male vs Female
+  Hazard Ratio: 0.6879
+  95% CI: 0.4634 - 1.0212
+  p-value: 0.063465
+
+Tumor Grade
+  Hazard Ratio: 1.7027
+  95% CI: 1.1576 - 2.5044
+  p-value: 0.006862
+
+
+PROPORTIONAL HAZARDS TEST
+------------------------------
+age_years: p = 0.186225
+sex_male: p = 0.964777
+tumor_grade_numeric: p = 0.575965

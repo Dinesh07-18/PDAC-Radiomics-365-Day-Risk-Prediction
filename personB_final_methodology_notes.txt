@@ -1,0 +1,347 @@
+PERSON B — FINAL METHODOLOGY AND RESULTS NOTES
+ML MINI-PROJECT: PANCREATIC CANCER PROGNOSIS
+
+1. PERSON B OBJECTIVE
+Person B handled the survival-analysis component of the pancreatic cancer
+prognosis project.
+
+The objective was to characterize patient survival using Kaplan-Meier
+analysis and determine whether CT-derived radiomic features provide
+additional survival-related information beyond clinical variables using
+Cox proportional hazards modelling.
+
+2. SURVIVAL ANALYSIS CONCEPTS
+
+Survival time:
+The observed time from the beginning of follow-up until the event occurs
+or the observation is censored. In this project the variable is
+survival_time_days.
+
+Event:
+The outcome of interest is death.
+- event = 1: death occurred.
+- event = 0: observation was censored.
+
+Censoring:
+Censoring occurs when the event is not observed during the available
+follow-up period. It means the later outcome is unknown.
+
+Hazard:
+The instantaneous risk or rate of experiencing the event at a particular
+time, conditional on having survived up to that time.
+
+Survival function:
+S(t) represents the probability that a patient survives beyond time t.
+
+3. DATASET
+
+The clinical survival dataset contained:
+- 138 patients
+- 110 events
+- 28 censored observations
+
+The CT/radiomics cohort contained:
+- 46 patients
+- 41 events
+- 5 censored observations
+
+The radiomics cohort is smaller because only patients with suitable
+matched CT imaging and tumor segmentation were included.
+
+4. KAPLAN-MEIER METHODOLOGY
+
+Kaplan-Meier analysis was used to estimate survival probability over
+time while accounting for censored observations.
+
+Pipeline:
+
+Patient data
+     |
+     v
+Survival time + Event
+     |
+     v
+Kaplan-Meier estimator
+     |
+     v
+Survival probability
+     |
+     v
+Survival curve
+
+Two main analyses were performed:
+
+A. Overall survival
+A Kaplan-Meier curve was generated for the full 138-patient clinical
+survival cohort.
+
+B. 365-day risk-group survival
+The predefined classification groups were compared:
+- Class 0: known survival >= 365 days
+- Class 1: death before 365 days
+
+Patients censored before 365 days were excluded from the 365-day
+classification cohort.
+
+5. KAPLAN-MEIER RESULTS
+
+Overall survival:
+- 138 patients
+- 110 events
+- 28 censored
+- Observed median follow-up: 442 days
+- Kaplan-Meier estimated median survival: 603 days
+
+Risk-group survival:
+- Class 0 median survival: 815 days
+- Class 1 median survival: 211 days
+- Log-rank statistic: 188.4982
+- Log-rank p-value: approximately 6.76e-43
+
+IMPORTANT INTERPRETATION:
+The 365-day groups were defined directly from survival outcome information.
+Therefore, their strong Kaplan-Meier separation is expected and should not
+be presented as independent predictive validation.
+
+6. COX PROPORTIONAL HAZARDS MODEL
+
+The Cox proportional hazards model was used to examine associations
+between predictor variables and the hazard of death.
+
+General pipeline:
+
+Predictor features
+        |
+        v
+Cox Proportional Hazards model
+        |
+        +--> Coefficient
+        |
+        +--> Hazard Ratio
+        |
+        +--> Confidence Interval
+        |
+        +--> p-value
+        |
+        +--> C-index
+
+Three models were developed:
+- Clinical Cox
+- Radiomic Cox
+- Combined Clinical + Radiomic Cox
+
+7. CLINICAL COX MODEL
+
+Clinical predictors:
+- Age
+- Sex
+- Tumor Grade
+
+The clinical Cox model was evaluated on the 46-patient radiomics cohort
+so that it could be compared fairly with the radiomic and combined models.
+
+Clinical Cox C-index:
+0.6606
+
+8. RADIOMIC FEATURE EXTRACTION AND QUALITY CONTROL
+
+The radiomics dataset initially contained:
+- 107 radiomic features
+
+Quality-control checks:
+- Missing-value check
+- Constant-feature check
+- Near-constant-feature check
+
+Results:
+- Missing features: 0
+- Constant features: 0
+- Near-constant features: 0
+
+Therefore:
+107 -> 107 features after low-variance filtering.
+
+9. CORRELATION FILTERING
+
+Highly correlated radiomic features were removed using:
+
+|r| > 0.95
+
+Result:
+107 features
+    |
+    v
+46 highly correlated features removed
+    |
+    v
+61 features remaining
+
+The purpose of correlation filtering was to reduce redundant predictors,
+reduce model instability, and make the Cox analysis more interpretable.
+
+10. UNIVARIATE COX FEATURE SELECTION
+
+Each of the 61 remaining radiomic features was screened using a
+univariate Cox proportional hazards model.
+
+The features were ranked using their statistical significance and a
+small final feature set was selected because the radiomics cohort
+contains only 46 patients.
+
+Three radiomic features were selected:
+
+1. original_gldm_LargeDependenceHighGrayLevelEmphasis
+2. original_glcm_MCC
+3. original_glszm_LargeAreaEmphasis
+
+11. RADIOMIC COX MODEL
+
+The three selected radiomic features were used as predictors in the
+radiomic-only Cox model.
+
+Radiomic Cox C-index:
+0.6091
+
+12. COMBINED COX MODEL
+
+The combined model contained:
+
+Clinical:
+- Age
+- Sex
+- Tumor Grade
+
+Radiomic:
+- original_gldm_LargeDependenceHighGrayLevelEmphasis
+- original_glcm_MCC
+- original_glszm_LargeAreaEmphasis
+
+Combined Cox C-index:
+0.7081
+
+13. C-INDEX
+
+The concordance index measures how well a survival model ranks patients
+according to relative risk.
+
+Approximate interpretation:
+- 0.5 -> random concordance
+- 1.0 -> perfect concordance
+
+Final results:
+
+Clinical Cox:
+0.6606
+
+Radiomic Cox:
+0.6091
+
+Combined Cox:
+0.7081
+
+The combined model had the highest apparent C-index.
+
+14. HAZARD RATIO
+
+For a Cox coefficient beta:
+
+HR = exp(beta)
+
+Interpretation:
+- HR = 1 -> no approximate change in hazard.
+- HR > 1 -> higher hazard.
+- HR < 1 -> lower hazard.
+
+The analysis produced hazard ratios, Cox coefficients, 95% confidence
+intervals and p-values for the evaluated Cox models.
+
+15. PROPORTIONAL HAZARDS ASSUMPTION
+
+The Cox model assumes that the relative hazards associated with predictors
+remain approximately proportional over time.
+
+The proportional-hazards assumption was tested for:
+- Clinical Cox
+- Radiomic Cox
+- Combined Cox
+
+All tested variables had p-values greater than 0.05.
+
+Conclusion:
+No statistically significant violation of the proportional hazards
+assumption was detected in the evaluated models.
+
+16. MODEL COMPARISON
+
+Model                         C-index
+Clinical Cox                  0.6606
+Radiomic Cox                  0.6091
+Combined Cox                  0.7081
+
+Interpretation:
+The combined clinical-radiomic model had the highest apparent concordance
+in this exploratory 46-patient cohort.
+
+17. LIMITATIONS
+
+- The radiomics cohort contains only 46 patients.
+- There are 107 initial radiomic features for only 46 patients.
+- This creates substantial overfitting risk.
+- Feature selection and model fitting were performed on the available
+  cohort.
+- The reported C-indices are apparent exploratory estimates rather than
+  independently validated performance.
+- Independent external validation would be required to establish
+  generalizability.
+- The Kaplan-Meier risk groups were defined using survival outcome
+  information, so their separation should not be treated as independent
+  predictive validation.
+
+18. FINAL PERSON B CONCLUSION
+
+Kaplan-Meier analysis was used to characterize overall survival and the
+survival patterns of the predefined 365-day risk groups.
+
+For the radiomic survival analysis, 107 initial radiomic features were
+reduced to 61 using correlation filtering, followed by univariate Cox
+screening that selected three radiomic features.
+
+Three Cox models were compared on the 46-patient radiomics cohort.
+The clinical-only, radiomic-only and combined models achieved apparent
+C-indices of 0.6606, 0.6091 and 0.7081 respectively.
+
+The combined clinical-radiomic model therefore showed the highest
+apparent concordance in this exploratory analysis.
+
+19. SHORT VIVA EXPLANATION
+
+"I worked on the survival-analysis component. I performed Kaplan-Meier
+analysis to characterize overall survival and compare the predefined
+365-day risk groups. I then developed clinical, radiomic and combined
+Cox proportional hazards models. The radiomic dataset initially had
+107 features. I performed quality checks, removed highly correlated
+features using a 0.95 correlation threshold, and used univariate Cox
+screening to select three features. The clinical, radiomic and combined
+models achieved apparent C-indices of 0.6606, 0.6091 and 0.7081,
+respectively. I also calculated hazard ratios and confidence intervals
+and tested the proportional hazards assumption."
+
+20. STATUS
+
+Person B survival-analysis implementation is complete.
+
+Completed:
+- Survival-analysis concepts
+- Overall Kaplan-Meier analysis
+- Risk-group Kaplan-Meier analysis
+- Log-rank test
+- Clinical Cox model
+- Radiomic Cox model
+- Combined Cox model
+- Radiomic quality control
+- Correlation filtering
+- Univariate Cox feature selection
+- C-index comparison
+- Hazard ratios and confidence intervals
+- Proportional hazards testing
+- Survival and hazard visualizations

@@ -1,0 +1,23 @@
+PERSON B - KAPLAN-MEIER SURVIVAL ANALYSIS
+============================================================
+
+OVERALL COHORT
+------------------------------
+Patients: 138
+Events: 110
+Censored: 28
+Median KM survival: 603.0
+
+365-DAY RISK COHORT
+------------------------------
+Eligible patients: 128
+Lower risk (Class 0): 85
+Higher risk (Class 1): 43
+Excluded censored before 365 days: 10
+
+RISK GROUP SURVIVAL
+------------------------------
+Lower-risk median survival: 815.0
+Higher-risk median survival: 211.0
+Log-rank statistic: 188.49820630323637
+Log-rank p-value: 6.763116089170952e-43

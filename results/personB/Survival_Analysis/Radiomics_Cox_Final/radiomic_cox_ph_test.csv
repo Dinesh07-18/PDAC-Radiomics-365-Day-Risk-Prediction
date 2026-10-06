@@ -1,0 +1,4 @@
+,test_statistic,p,-log2(p),model
+original_glcm_MCC,1.2706304331502716,0.25964844439153173,1.945368512925339,Radiomic Cox
+original_gldm_LargeDependenceHighGrayLevelEmphasis,0.6395147567845948,0.42388656538434677,1.2382498523927314,Radiomic Cox
+original_glszm_LargeAreaEmphasis,0.3898970000615736,0.5323535478412257,0.9095434049727843,Radiomic Cox

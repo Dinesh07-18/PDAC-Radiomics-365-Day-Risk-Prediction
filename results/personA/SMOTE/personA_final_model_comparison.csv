@@ -1,0 +1,5 @@
+Model,Accuracy,Class_1_Recall,Class_1_F1,ROC_AUC
+Majority-Class Baseline,65.38,0.0,0.0,
+Naive Bayes,65.38,22.0,31.0,
+Naive Bayes + SMOTENC,73.08,56.0,59.0,59.48
+Logistic Regression + SMOTENC,61.54,56.0,50.0,57.52

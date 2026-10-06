@@ -1,0 +1,204 @@
+PERSON B - FINAL SURVIVAL ANALYSIS RESULTS
+==================================================
+
+1. DATASET
+--------------------------------------------------
+Clinical survival cohort: 138 patients
+Radiomics-matched cohort: 46 patients
+
+Radiomics cohort:
+- Events: 41
+- Censored: 5
+
+Radiomic feature count: 107
+
+2. SURVIVAL ANALYSIS
+--------------------------------------------------
+Overall Kaplan-Meier analysis was performed using:
+- Survival time
+- Event status
+
+Risk-group Kaplan-Meier analysis compared:
+- Class 0: Lower-risk, known survival >= 365 days
+- Class 1: Higher-risk, death before 365 days
+
+Patients censored before 365 days were excluded from the
+365-day classification cohort.
+
+3. KAPLAN-MEIER RESULTS
+--------------------------------------------------
+Overall KM analysis:
+- 138 patients
+- 110 events
+- 28 censored
+- Observed median follow-up: 442 days
+- Kaplan-Meier estimated median survival: 603 days
+
+365-day risk-group KM:
+- Class 0 median survival: 815 days
+- Class 1 median survival: 211 days
+- Log-rank statistic: 188.4982
+- Log-rank p-value: approximately 6.76e-43
+
+IMPORTANT:
+The 365-day groups were defined using survival outcome information.
+Therefore, the strong KM separation is expected and should not be
+described as independent predictive validation.
+
+4. RADIOMIC QUALITY CONTROL
+--------------------------------------------------
+Initial radiomic features: 107
+Features with missing values: 0
+Constant features: 0
+Near-constant features: 0
+
+After low-variance filtering:
+107 features
+
+Correlation threshold:
+|r| > 0.95
+
+Highly correlated features removed:
+46
+
+Features remaining:
+61
+
+5. UNIVARIATE RADIOMIC COX SCREENING
+--------------------------------------------------
+Radiomic features screened: 61
+
+Feature screening was performed using univariate Cox proportional
+hazards models.
+
+6. SELECTED RADIOMIC FEATURES
+--------------------------------------------------
+Three radiomic features were selected:
+
+1. original_gldm_LargeDependenceHighGrayLevelEmphasis
+2. original_glcm_MCC
+3. original_glszm_LargeAreaEmphasis
+
+7. COX CLINICAL MODEL
+--------------------------------------------------
+Clinical features:
+- Age
+- Sex
+- Tumor Grade
+
+Patients: 46
+Features: 3
+
+C-index: 0.6606
+
+8. COX RADIOMIC MODEL
+--------------------------------------------------
+Selected radiomic features: 3
+
+Patients: 46
+Features: 3
+
+C-index: 0.6091
+
+9. COX COMBINED MODEL
+--------------------------------------------------
+Clinical features:
+- Age
+- Sex
+- Tumor Grade
+
+Radiomic features:
+- original_gldm_LargeDependenceHighGrayLevelEmphasis
+- original_glcm_MCC
+- original_glszm_LargeAreaEmphasis
+
+Patients: 46
+Features: 6
+
+C-index: 0.7081
+
+10. C-INDEX COMPARISON
+--------------------------------------------------
+Model                         C-index
+Clinical Cox                  0.6606
+Radiomic Cox                  0.6091
+Combined Cox                  0.7081
+
+The combined clinical-radiomic model had the highest apparent
+C-index among the three evaluated models.
+
+11. PROPORTIONAL HAZARDS ASSUMPTION
+--------------------------------------------------
+Clinical Cox:
+- All tested p-values > 0.05
+
+Radiomic Cox:
+- All tested p-values > 0.05
+
+Combined Cox:
+- All tested p-values > 0.05
+
+No statistically significant violation of the proportional
+hazards assumption was detected in the evaluated models.
+
+12. HAZARD RATIOS AND IMPORTANT FEATURES
+--------------------------------------------------
+Cox models produced:
+- Cox coefficients
+- Hazard ratios
+- 95% confidence intervals
+- p-values
+
+The three selected radiomic features were used in the final
+radiomic and combined Cox models.
+
+13. VISUALIZATIONS
+--------------------------------------------------
+Kaplan-Meier:
+results/personB/final_visualizations/06_Survival_Analysis/
+- overall_kaplan_meier_curve.png
+- risk_group_kaplan_meier_curve.png
+
+Cox:
+- clinical_cox_hazard_ratios.png
+- radiomic_cox_hazard_ratios.png
+- combined_cox_hazard_ratios.png
+- cox_cindex_comparison.png
+
+14. FINAL CONCLUSION
+--------------------------------------------------
+The clinical Cox model achieved an apparent C-index of 0.6606.
+The radiomic Cox model achieved an apparent C-index of 0.6091.
+The combined clinical-radiomic Cox model achieved the highest
+apparent C-index of 0.7081.
+
+The radiomic workflow reduced 107 initial features to 61 after
+correlation filtering and selected three features using univariate
+Cox screening.
+
+The results suggest that the selected radiomic features may add
+survival-related information beyond the clinical variables in this
+exploratory cohort.
+
+Because the radiomics cohort contains only 46 patients and the
+feature-selection/model-fitting process used this cohort, the
+C-index values should be treated as exploratory apparent performance,
+not independently validated clinical performance.
+
+15. FILES / FIGURES
+--------------------------------------------------
+Survival_Analysis/
+- Kaplan_Meier/
+- Clinical_Baseline_138Patients/
+- Radiomics_Cox_Final/
+
+Key result files:
+- risk_group_logrank_test.csv
+- clinical_cox_results.csv
+- radiomic_cox_results.csv
+- combined_cox_results.csv
+- cox_cindex_comparison.csv
+- selected_radiomic_features.csv
+- radiomic_univariate_cox_results.csv
+- radiomic_feature_selection_summary.csv
+- radiomic_cox_final_summary.txt

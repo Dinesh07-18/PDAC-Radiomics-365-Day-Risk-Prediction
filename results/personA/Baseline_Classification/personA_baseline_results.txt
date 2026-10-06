@@ -1,0 +1,96 @@
+PERSON A — 365-DAY CLINICAL NAIVE BAYES BASELINE
+
+Dataset
+-------
+Total cleaned PDAC patients: 138
+Patients with positive follow-up: 137
+365-day classification cohort: 128
+
+365-day target
+--------------
+Class 0: Known survival >= 365 days
+Class 1: Death before 365 days
+
+Class distribution
+------------------
+Class 0: 85
+Class 1: 43
+
+Train/Test Split
+----------------
+Training: 102
+Testing: 26
+
+Training before SMOTE
+---------------------
+Class 0: 68
+Class 1: 34
+
+Training after SMOTENC
+----------------------
+Class 0: 68
+Class 1: 68
+Total: 136
+
+Features
+--------
+Age
+Sex
+Tumor Grade
+
+Naive Bayes
+-----------
+Model: Gaussian Naive Bayes
+
+Performance WITH SMOTE
+----------------------
+Accuracy: 73.08%
+
+Class 0:
+Precision: 0.78
+Recall: 0.82
+F1-score: 0.80
+
+Class 1:
+Precision: 0.62
+Recall: 0.56
+F1-score: 0.59
+
+Macro F1: 0.69
+
+Confusion Matrix
+----------------
+[[14, 3],
+ [4, 5]]
+
+Correct predictions: 19
+Incorrect predictions: 7
+
+
+Comparison WITHOUT SMOTE
+------------------------
+Accuracy: 65.38%
+
+Class 0:
+Precision: 0.68
+Recall: 0.88
+F1-score: 0.77
+
+Class 1:
+Precision: 0.50
+Recall: 0.22
+F1-score: 0.31
+
+Macro F1: 0.54
+
+
+SMOTE Effect
+------------
+Accuracy:
+65.38% -> 73.08%
+
+Class 1 recall:
+22% -> 56%
+
+Class 1 F1:
+0.31 -> 0.59

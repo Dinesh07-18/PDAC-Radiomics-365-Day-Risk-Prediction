@@ -1,0 +1,13 @@
+PERSON B - BEST MODEL SUMMARY
+============================================================
+
+Feature set: Clinical Only
+Model: LogisticRegression
+ROC-AUC: 0.6200
+Accuracy: 0.6087
+Precision: 0.3913
+Recall: 0.6923
+F1: 0.5000
+
+Important interpretation:
+The model with the highest ROC-AUC is not automatically the best clinical model. Class-1 recall and the confusion matrix should also be considered, especially because the dataset is imbalanced.

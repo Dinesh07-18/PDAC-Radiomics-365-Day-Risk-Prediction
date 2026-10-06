@@ -1,0 +1,50 @@
+PERSON A - 5-FOLD CROSS-VALIDATION RESULTS
+==================================================
+
+Dataset:
+128 patients
+85 Class 0
+43 Class 1
+
+Cross-validation:
+5-fold StratifiedKFold
+shuffle=True
+random_state=42
+
+SMOTENC:
+Applied separately within each training fold.
+
+NAIVE BAYES + SMOTENC
+--------------------------------------------------
+Mean Accuracy: 0.6495
+Std Accuracy: 0.1086
+
+Mean F1: 0.4500
+Std F1: 0.1893
+
+Mean ROC-AUC: 0.6008
+Std ROC-AUC: 0.1516
+
+
+LOGISTIC REGRESSION + SMOTENC
+--------------------------------------------------
+Mean Accuracy: 0.6255
+Std Accuracy: 0.1190
+
+Mean F1: 0.4153
+Std F1: 0.2479
+
+Mean ROC-AUC: 0.5900
+Std ROC-AUC: 0.1610
+
+
+CONCLUSION
+--------------------------------------------------
+Naive Bayes achieved slightly higher mean accuracy,
+F1, and ROC-AUC than Logistic Regression.
+
+However, the relatively large standard deviations indicate
+substantial variation between folds.
+
+Therefore, the classification results should be considered
+baseline findings rather than definitive predictive performance.
